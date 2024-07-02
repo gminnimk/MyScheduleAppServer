@@ -2,6 +2,8 @@ package com.sparta.schedulemanagementappserver.controller;
 
 
 import com.sparta.schedulemanagementappserver.dto.ScheduleRequestDto;
+import com.sparta.schedulemanagementappserver.dto.ScheduleResponseDto;
+import com.sparta.schedulemanagementappserver.entity.Schedule;
 import com.sparta.schedulemanagementappserver.service.ScheduleService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -20,9 +22,10 @@ public class ScheduleController {
     // 보통 생성은 request body를 사용하고 request body를 사용하기 위헤서는 dto를 생성 및 사용
 
     @PostMapping("/schedule")
-    public ResponseEntity postSchedule(@RequestBody ScheduleRequestDto dto) {
+    public ResponseEntity<ScheduleResponseDto> postSchedule(@RequestBody ScheduleRequestDto dto) {
         // TODO 일정 작성 기능
-        scheduleService.createSchedule(dto);
-        return ResponseEntity.ok().build();
+        Schedule schedule = scheduleService.createSchedule(dto);
+        ScheduleResponseDto response = new ScheduleResponseDto(schedule);
+        return ResponseEntity.ok().body(response);
     }
 }
