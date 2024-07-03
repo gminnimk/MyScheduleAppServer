@@ -1,5 +1,6 @@
 package com.sparta.schedulemanagementappserver.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,7 +14,7 @@ import lombok.Setter;
 
     */
 
-
+@JsonInclude(JsonInclude.Include.NON_NULL) // null 값을 가지는 필드를 JSON 응답에서 생략하도록 설정
 @Getter // Lombok 라이브러리를 사용하여 getter 메서드를 자동으로 생성합니다.
 @Setter // Lombok 라이브러리를 사용하여 setter 메서드를 자동으로 생성합니다.
 @Builder // Lombok 라이브러리를 사용하여 빌더 패턴을 자동으로 생성합니다.
