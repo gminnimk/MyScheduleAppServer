@@ -41,18 +41,30 @@ public class ScheduleService {
 
     // 할일 수정
     public Schedule updateSchedule(Long scheduleId, ScheduleRequestDto dto) {
-        Schedule schedule = getSchedule(scheduleId);
-
-        // 비밀번호 체크
-        if (schedule.getPassword() != null
-        && !Objects.equals(schedule.getPassword(), dto.getPassword())) {
-            throw new IllegalArgumentException();
-        }
+        Schedule schedule = checkPWAndGetSchedule(scheduleId, dto.getPassword());
 
         schedule.setTitle(dto.getTitle());
         schedule.setContents(dto.getContents());
         schedule.setWriter(dto.getWriter());
 
         return scheduleRepository.save(schedule);
+    }
+
+    private Schedule checkPWAndGetSchedule(Long scheduleId, String password) {
+        Schedule schedule = getSchedule(scheduleId);
+
+        // 비밀번호 체크
+        if (schedule.getPassword() != null
+                && !Objects.equals(schedule.getPassword(), password)) {
+            throw new IllegalArgumentException();
+        }
+        return schedule;
+    }
+
+    public Schedule deleteSchedule(Long scheduleId, String password) {
+        Schedule schedule = checkPWAndGetSchedule(scheduleId, password);
+
+        scheduleRepository.delete(schedule);
+        return schedule;
     }
 }

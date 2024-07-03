@@ -75,4 +75,10 @@ public class ScheduleController {
         return ResponseEntity.ok().body(response);
     }
 
+    // 선택한 일정 삭제 기능
+    @DeleteMapping("schedule/{scheduleId}")
+    public ResponseEntity<Void> deleteSchedule(@PathVariable Long scheduleId, @RequestBody ScheduleRequestDto dto) {
+        scheduleService.deleteSchedule(scheduleId, dto.getPassword());
+        return ResponseEntity.ok().build();
+    }
 }
