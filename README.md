@@ -17,7 +17,8 @@
 ### ✔️ API 명세서
 <BR>
 
-![image](https://github.com/gminnimk/MyScheduleAppServer/assets/165118770/6a308c31-3496-4b6d-9a67-a165b7547315)
+![image](https://github.com/gminnimk/MyScheduleAppServer/assets/165118770/23541bfc-44a3-4e82-9204-d25d08c740ad)
+
 
 <BR>
 
