@@ -33,8 +33,9 @@ W
 public class ScheduleRequestDto {
 
     @NotBlank(message = "제목을 입력해주세요.")
-    private String title; // 할일 제목의 필드
     @Size(max = 200, message = "최대 200자 이내로 작성해주세요.")
+    private String title; // 할일 제목의 필드
+
 
     @NotBlank(message = "내용을 입력해주세요.")
     private String contents; // 할일 내용의 필드
