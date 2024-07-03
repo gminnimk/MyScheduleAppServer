@@ -1,11 +1,13 @@
 package com.sparta.schedulemanagementappserver.controller;
 
 
+import com.sparta.schedulemanagementappserver.dto.CommonResponse;
 import com.sparta.schedulemanagementappserver.dto.ScheduleRequestDto;
 import com.sparta.schedulemanagementappserver.dto.ScheduleResponseDto;
 import com.sparta.schedulemanagementappserver.entity.Schedule;
 import com.sparta.schedulemanagementappserver.service.ScheduleService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,46 +41,69 @@ public class ScheduleController {
     // 일정 생성 기능
     // 클라이언트로부터 전달받은 일정 데이터를 ScheduleRequestDto 객체로 받아옴
     @PostMapping("/schedule")
-    public ResponseEntity<ScheduleResponseDto> postSchedule(@RequestBody ScheduleRequestDto dto) {
+    public ResponseEntity<CommonResponse<ScheduleResponseDto>> postSchedule(@RequestBody ScheduleRequestDto dto) {
         Schedule schedule = scheduleService.createSchedule(dto); // ScheduleService를 이용해 새로운 일정을 생성.
         ScheduleResponseDto response = new ScheduleResponseDto(schedule); // 생성된 일정을 ScheduleResponseDto 객체로 변환.
-        return ResponseEntity.ok().body(response); // 생성된 일정 데이터를 클라이언트에게 반환.
+        return ResponseEntity.ok()
+                .body(CommonResponse.<ScheduleResponseDto>builder()
+                        .statusCode(HttpStatus.OK.value())
+                        .msg("생성이 완료 되었습니다.")
+                        .data(response)
+                        .build());
     }
 
 
     // 특정 일정 조회 기능
     // 경로 변수로 전달된 일정 ID를 받아옴.
     @GetMapping("/schedule/{scheduleId}")
-    public ResponseEntity<ScheduleResponseDto> getSchedule(@PathVariable Long scheduleId) {
+    public ResponseEntity<CommonResponse<ScheduleResponseDto>> getSchedule(@PathVariable Long scheduleId) {
         Schedule schedule = scheduleService.getSchedule(scheduleId);
         ScheduleResponseDto response = new ScheduleResponseDto(schedule);
-        return ResponseEntity.ok().body(response);
+        return ResponseEntity.ok()
+                .body(CommonResponse.<ScheduleResponseDto>builder()
+                        .statusCode(HttpStatus.OK.value())
+                        .msg("단건 조회가 완료 되었습니다.")
+                        .data(response)
+                        .build());
     }
-
 
     // 전체 일정 조회 기능
     @GetMapping("/schedule")
-    public ResponseEntity<List<ScheduleResponseDto>> getSchedules() {
+    public ResponseEntity<CommonResponse<List<ScheduleResponseDto>>> getSchedules() {
         List<Schedule> schedules = scheduleService.getSchedules();
         List<ScheduleResponseDto> response = schedules.stream()
                 .map(ScheduleResponseDto::new)
                 .collect(Collectors.toList());
-        return ResponseEntity.ok().body(response);
+        return ResponseEntity.ok()
+                .body(CommonResponse.<List<ScheduleResponseDto>>builder()
+                        .statusCode(HttpStatus.OK.value())
+                        .msg("목록 조회이 완료 되었습니다.")
+                        .data(response)
+                        .build());
     }
+
 
 
     // 선택한 일정 수정 기능
     @PutMapping("schedule/{scheduleId}")
-    public ResponseEntity<ScheduleResponseDto> putSchedule(@PathVariable Long scheduleId, @RequestBody ScheduleRequestDto dto) {
+    public ResponseEntity<CommonResponse<ScheduleResponseDto>> putSchedule(@PathVariable Long scheduleId, @RequestBody ScheduleRequestDto dto) {
         Schedule schedule = scheduleService.updateSchedule(scheduleId, dto);
         ScheduleResponseDto response = new ScheduleResponseDto(schedule);
-        return ResponseEntity.ok().body(response);
+        return ResponseEntity.ok()
+                .body(CommonResponse.<ScheduleResponseDto>builder()
+                        .statusCode(HttpStatus.OK.value())
+                        .msg("수정이 완료 되었습니다.")
+                        .data(response)
+                        .build());
     }
 
     // 선택한 일정 삭제 기능
     @DeleteMapping("schedule/{scheduleId}")
-    public ResponseEntity<Void> deleteSchedule(@PathVariable Long scheduleId, @RequestBody ScheduleRequestDto dto) {
+    public ResponseEntity<CommonResponse> deleteSchedule(@PathVariable Long scheduleId, @RequestBody ScheduleRequestDto dto) {
         scheduleService.deleteSchedule(scheduleId, dto.getPassword());
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok().body(CommonResponse.builder()
+                .statusCode(HttpStatus.OK.value())
+                .msg("삭제가 완료 되었습니다.")
+                .build());
     }
 }
