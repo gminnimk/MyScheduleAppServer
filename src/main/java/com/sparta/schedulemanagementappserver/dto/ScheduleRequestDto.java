@@ -2,9 +2,9 @@ package com.sparta.schedulemanagementappserver.dto;
 
 
 import com.sparta.schedulemanagementappserver.entity.Schedule;
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotBlank; // 7단계
 import lombok.Getter;
-import lombok.NoArgsConstructor; // 7단계
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 
