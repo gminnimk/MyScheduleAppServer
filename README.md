@@ -8,9 +8,8 @@
 <BR>
 
 <details>
-<summary>### ✔️ Use Case Diagram </summary>
+<summary>✔️ Use Case Diagram </summary>
 <div markdown="1">
-
 
 ![image](https://github.com/gminnimk/MyScheduleAppServer/assets/165118770/febe417c-bd1a-484b-8b92-88550bd7feb9)
 
@@ -19,22 +18,28 @@
 <BR>
 
 
-
-      
-### ✔️ API 명세서 (POSTMAN) 
-<BR>
+<details>
+<summary>✔️ API 명세서 (POSTMAN)</summary>
+<div markdown="1">
 
 ![image](https://github.com/gminnimk/MyScheduleAppServer/assets/165118770/23541bfc-44a3-4e82-9204-d25d08c740ad)
 
 
 ![image](https://github.com/gminnimk/MyScheduleAppServer/assets/165118770/9aa92a2e-f8a0-447f-8077-d3277ae2218f)
 
-
+</div>
+</details>
 
 <BR>
 
-### ✔️ ERD
-<BR>
+<details>
+<summary>✔️ ERD (POSTMAN)</summary>
+<div markdown="1">
+
 
 ![image](https://github.com/gminnimk/MyScheduleAppServer/assets/165118770/0d109b9d-3d5b-4fdb-ba6d-1933dede94c7)
+
+</div>
+</details>
+
 
