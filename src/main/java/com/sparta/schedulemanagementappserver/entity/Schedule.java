@@ -42,6 +42,18 @@ public class Schedule {
         this.createdAt = LocalDateTime.now();
     }
 
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setContents(String contents) {
+        this.contents = contents;
+    }
+
+    public void setWriter(String writer) {
+        this.writer = writer;
+    }
+
     public Long getScheduleId() {
         return scheduleid;
     }

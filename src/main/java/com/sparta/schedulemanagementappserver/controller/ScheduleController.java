@@ -65,4 +65,14 @@ public class ScheduleController {
                 .collect(Collectors.toList());
         return ResponseEntity.ok().body(response);
     }
+
+
+    // 선택한 일정 수정 기능
+    @PutMapping("schedule/{scheduleId}")
+    public ResponseEntity<ScheduleResponseDto> putSchedule(@PathVariable Long scheduleId, @RequestBody ScheduleRequestDto dto) {
+        Schedule schedule = scheduleService.updateSchedule(scheduleId, dto);
+        ScheduleResponseDto response = new ScheduleResponseDto(schedule);
+        return ResponseEntity.ok().body(response);
+    }
+
 }

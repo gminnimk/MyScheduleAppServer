@@ -9,6 +9,7 @@ import org.springframework.scheduling.annotation.Schedules;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 
 @Service
@@ -38,5 +39,20 @@ public class ScheduleService {
     }
 
 
+    // 할일 수정
+    public Schedule updateSchedule(Long scheduleId, ScheduleRequestDto dto) {
+        Schedule schedule = getSchedule(scheduleId);
 
+        // 비밀번호 체크
+        if (schedule.getPassword() != null
+        && !Objects.equals(schedule.getPassword(), dto.getPassword())) {
+            throw new IllegalArgumentException();
+        }
+
+        schedule.setTitle(dto.getTitle());
+        schedule.setContents(dto.getContents());
+        schedule.setWriter(dto.getWriter());
+
+        return scheduleRepository.save(schedule);
+    }
 }
