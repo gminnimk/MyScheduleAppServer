@@ -20,7 +20,16 @@ public class ScheduleService {
     public Schedule createSchedule(ScheduleRequestDto dto) {
         var newSchedule = dto.toEntity();
         return scheduleRepository.save(newSchedule);
+    }
 
+
+    // 할일 단건 조회
+    public Schedule getSchedule(Long scheduleId) {
+        return scheduleRepository.findById(scheduleId)
+                .orElseThrow(IllegalArgumentException::new);
 
     }
+
+
+
 }

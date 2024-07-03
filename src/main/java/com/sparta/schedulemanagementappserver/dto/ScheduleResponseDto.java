@@ -15,6 +15,8 @@ import java.time.LocalDateTime;
 @Setter
 public class ScheduleResponseDto {
 
+    private Long scheduleId;
+
     private String title;
 
     private String contents;
@@ -24,6 +26,7 @@ public class ScheduleResponseDto {
     private LocalDateTime createdAt;
 
     public ScheduleResponseDto(Schedule schedule) {
+        this.scheduleId = schedule.getScheduleId();
         this.title = schedule.getTitle();
         this.contents = schedule.getContents();
         this.writer = schedule.getWriter();

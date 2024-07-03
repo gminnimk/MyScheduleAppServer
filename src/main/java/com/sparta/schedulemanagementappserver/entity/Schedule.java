@@ -15,7 +15,6 @@ import java.time.LocalDateTime;
 @NoArgsConstructor // 기본 생성자를 자동으로 생성해주는 에노테이션
 public class Schedule {
 
-
     @Id // PK 임을 나타냄
     @GeneratedValue(strategy = GenerationType.IDENTITY) // DB가 자동으로 생성하는 값으로 설정
     @Column(name = "schedule_id", nullable = false) // DB의 열의 이름과 제약 조건 설정.
@@ -43,4 +42,7 @@ public class Schedule {
         this.createdAt = LocalDateTime.now();
     }
 
+    public Long getScheduleId() {
+        return scheduleid;
+    }
 }
