@@ -6,6 +6,7 @@ import com.sparta.schedulemanagementappserver.dto.ScheduleRequestDto;
 import com.sparta.schedulemanagementappserver.dto.ScheduleResponseDto;
 import com.sparta.schedulemanagementappserver.entity.Schedule;
 import com.sparta.schedulemanagementappserver.service.ScheduleService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,7 +37,6 @@ import java.util.stream.Collectors;
 
  */
 
-
 @RequestMapping("api") // 이 클래스의 모든 메서드는 "/api" 경로 하위에서 매핑.
 @RestController // 이 클래스는 RESTful 웹 서비스의 컨트롤러임을 나타냄.
 @AllArgsConstructor // 이 클래스의 모든 필드를 인수로 받는 생성자를 자동으로 생성해줌.
@@ -53,8 +53,10 @@ public class ScheduleController {
 
     // 일정 생성 기능
     // 클라이언트로부터 전달받은 일정 데이터를 ScheduleRequestDto 객체로 받아옵니다.
+
+    // @Valid 어노테이션을 컨트롤러 메서드의 @RequestBody 파라미터 앞에 추가하면, 해당 DTO 객체의 필드에 정의된 유효성 검사 어노테이션들이 적용
     @PostMapping("/schedule")
-    public ResponseEntity<CommonResponse<ScheduleResponseDto>> postSchedule(@RequestBody ScheduleRequestDto dto) {
+    public ResponseEntity<CommonResponse<ScheduleResponseDto>> postSchedule(@Valid @RequestBody ScheduleRequestDto dto) {
         Schedule schedule = scheduleService.createSchedule(dto); // ScheduleService를 이용해 새로운 일정을 생성합니다.
         ScheduleResponseDto response = new ScheduleResponseDto(schedule); // 생성된 일정을 ScheduleResponseDto 객체로 변환합니다.
         return ResponseEntity.ok()

@@ -2,6 +2,8 @@ package com.sparta.schedulemanagementappserver.service;
 
 import com.sparta.schedulemanagementappserver.dto.ScheduleRequestDto;
 import com.sparta.schedulemanagementappserver.entity.Schedule;
+import com.sparta.schedulemanagementappserver.exception.CustomException;
+import com.sparta.schedulemanagementappserver.exception.ErrorEnum;
 import com.sparta.schedulemanagementappserver.repository.ScheduleRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Sort;
@@ -35,14 +37,14 @@ public class ScheduleService {
 
     // 할일을 생성하는 메서드
     public Schedule createSchedule(ScheduleRequestDto dto) { // 새로운 일정을 생성합니다. ScheduleRequestDto 객체를 받아 Schedule 엔티티로 변환한 후, 데이터베이스에 저장합니다.
-        var newSchedule = dto.toEntity(); // ScheduleRequestDto를 Schedule 엔티티로 변환합니다.
+        Schedule newSchedule = dto.toEntity(); // ScheduleRequestDto를 Schedule 엔티티로 변환합니다.
         return scheduleRepository.save(newSchedule); // 새 일정을 데이터베이스에 저장하고 반환합니다.
     }
 
     // 특정 할일을 조회하는 메서드
     public Schedule getSchedule(Long scheduleId) {
         return scheduleRepository.findById(scheduleId) // ID로 일정 데이터를 조회합니다.
-                .orElseThrow(IllegalArgumentException::new); // 일정이 존재하지 않으면 예외를 던집니다.
+                .orElseThrow(() -> new CustomException(ErrorEnum.BAD_POSTID)); // 일정이 존재하지 않으면 예외를 던집니다.
     }
 
     // 모든 할일을 조회하는 메서드, 작성일 기준으로 내림차순 정렬합니다.
@@ -67,7 +69,7 @@ public class ScheduleService {
 
         // 비밀번호가 일치하는지 확인합니다.
         if (schedule.getPassword() != null && !Objects.equals(schedule.getPassword(), password)) {
-            throw new IllegalArgumentException(); // 비밀번호가 일치하지 않으면 예외를 던집니다.
+            throw new CustomException(ErrorEnum.BAD_PASSWORD); // 비밀번호가 일치하지 않으면 예외를 던집니다.
         }
         return schedule; // 일치하면 일정을 반환합니다.
     }
@@ -75,6 +77,10 @@ public class ScheduleService {
     // 특정 할일을 삭제하는 메서드
     public Schedule deleteSchedule(Long scheduleId, String password) {
         Schedule schedule = checkPWAndGetSchedule(scheduleId, password); // 비밀번호를 확인하고 일정을 조회합니다.
+
+        if (schedule.getPassword() != null && !Objects.equals(schedule.getPassword(), password)) {
+            throw new CustomException(ErrorEnum.BAD_PASSWORD); // 비밀번호가 일치하지 않으면 예외를 던집니다.
+        }
 
         scheduleRepository.delete(schedule); // 일정을 데이터베이스에서 삭제합니다.
         return schedule; // 삭제된 일정을 반환합니다.

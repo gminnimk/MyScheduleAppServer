@@ -2,8 +2,12 @@ package com.sparta.schedulemanagementappserver.dto;
 
 
 import com.sparta.schedulemanagementappserver.entity.Schedule;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+
 
 
 /*
@@ -17,20 +21,24 @@ import lombok.Setter;
         ✔️ (2). 데이터 변환 : 'toEntity' 메서드를 통해 'Schedule' 엔티티 객체로 변환하여 서비스 계층에서 사용할 수 있도록 함.
 
     ➡️ 일정의 제목, 내용, 작성자, 비밀번호를 필드로 가지고 있고, 클라이언트로부터 입력된 데이터를 이 플드들에 담음.
-
+W
  */
 
 @Setter // 해당 클래스의 모든 필드에 대해 Setter 메서드를 자동으로 생성
 @Getter // Getter 메서드 자동 생성.
-
+@NoArgsConstructor
 public class ScheduleRequestDto {
 
+    @NotBlank(message = "제목을 입력해주세요.")
     private String title; // 할일 제목의 필드
 
+    @NotBlank(message = "내용을 입력해주세요.")
     private String contents; // 할일 내용의 필드
 
+    @NotBlank(message = "작성자를 입력해주세요.")
     private String writer; // 담당자의 필드
 
+    @NotBlank(message = "비밀번호는 공백일 수 없습니다.")
     private String password; // 비밀번호 필드
 
 
