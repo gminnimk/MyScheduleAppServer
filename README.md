@@ -25,4 +25,5 @@
 ### ✔️ ERD
 <BR>
 
-![image](https://github.com/gminnimk/MyScheduleAppServer/assets/165118770/ad403ba0-c4d9-4e29-a1db-445855ccbf28)
+![image](https://github.com/gminnimk/MyScheduleAppServer/assets/165118770/0d109b9d-3d5b-4fdb-ba6d-1933dede94c7)
+
