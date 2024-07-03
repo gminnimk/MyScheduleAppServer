@@ -6,7 +6,7 @@ import com.sparta.schedulemanagementappserver.dto.ScheduleRequestDto;
 import com.sparta.schedulemanagementappserver.dto.ScheduleResponseDto;
 import com.sparta.schedulemanagementappserver.entity.Schedule;
 import com.sparta.schedulemanagementappserver.service.ScheduleService;
-import jakarta.validation.Valid;
+import jakarta.validation.Valid; // 7단계
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -54,7 +54,7 @@ public class ScheduleController {
     // 일정 생성 기능
     // 클라이언트로부터 전달받은 일정 데이터를 ScheduleRequestDto 객체로 받아옵니다.
 
-    // @Valid 어노테이션을 컨트롤러 메서드의 @RequestBody 파라미터 앞에 추가하면, 해당 DTO 객체의 필드에 정의된 유효성 검사 어노테이션들이 적용
+    // @Valid 어노테이션을 컨트롤러 메서드의 @RequestBody 파라미터 앞에 추가하면, 해당 DTO 객체의 필드에 정의된 유효성 검사 어노테이션들이 적용 (7단계)
     @PostMapping("/schedule")
     public ResponseEntity<CommonResponse<ScheduleResponseDto>> postSchedule(@Valid @RequestBody ScheduleRequestDto dto) {
         Schedule schedule = scheduleService.createSchedule(dto); // ScheduleService를 이용해 새로운 일정을 생성합니다.
