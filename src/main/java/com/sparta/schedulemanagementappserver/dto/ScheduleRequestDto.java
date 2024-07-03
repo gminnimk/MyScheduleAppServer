@@ -2,7 +2,10 @@ package com.sparta.schedulemanagementappserver.dto;
 
 
 import com.sparta.schedulemanagementappserver.entity.Schedule;
+import jakarta.persistence.Column;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank; // 7단계
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -31,11 +34,13 @@ public class ScheduleRequestDto {
 
     @NotBlank(message = "제목을 입력해주세요.")
     private String title; // 할일 제목의 필드
+    @Size(max = 200, message = "최대 200자 이내로 작성해주세요.")
 
     @NotBlank(message = "내용을 입력해주세요.")
     private String contents; // 할일 내용의 필드
 
-    @NotBlank(message = "작성자를 입력해주세요.")
+    @Email
+    @NotBlank(message = "email은 공백일 수 없습니다.")
     private String writer; // 담당자의 필드
 
     @NotBlank(message = "비밀번호는 공백일 수 없습니다.")
