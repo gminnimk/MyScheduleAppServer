@@ -4,9 +4,11 @@ import com.sparta.schedulemanagementappserver.dto.ScheduleRequestDto;
 import com.sparta.schedulemanagementappserver.entity.Schedule;
 import com.sparta.schedulemanagementappserver.repository.ScheduleRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Sort;
+import org.springframework.scheduling.annotation.Schedules;
 import org.springframework.stereotype.Service;
 
-
+import java.util.List;
 
 
 @Service
@@ -28,6 +30,11 @@ public class ScheduleService {
         return scheduleRepository.findById(scheduleId)
                 .orElseThrow(IllegalArgumentException::new);
 
+    }
+
+    // 할일 전체 조회 (createdAt 기준으로 내림차순)
+    public List<Schedule> getSchedules() {
+        return scheduleRepository.findAll(Sort.by("createdAt").descending());
     }
 
 

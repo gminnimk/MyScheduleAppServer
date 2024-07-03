@@ -9,26 +9,45 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@RequestMapping("api")
-@RestController
-@AllArgsConstructor
+import java.util.List;
+import java.util.stream.Collectors;
+
+/*
+
+✅ ScheduleController 클래스는 RESTful API를 제공하는 컨트롤러.
+
+    ➡️ 이 클래스는 일정 관련 요청을 처리 및 클라이언트로부터 요청을 받아 서비스를 통해 비즈니스 로직을 수행하고
+        그 결과를 클라이언트에게 반환하는 역할 수행.
+
+ */
+
+
+@RequestMapping("api") // 이 클래스의 모든 메서드는 "/api" 경로 하위에서 매핑.
+@RestController // 이 클래스는 RESTful 웹 서비스의 컨트롤러임을 나타냄.
+@AllArgsConstructor // 이 클래스의 모든 필드를 인수로 받는 생성자를 자동으로 생성해줌.
 public class ScheduleController {
 
 
+    // 일정 관련 비스니즈 로직을 처리하는 서비스 객체를 주입 받음.
     public final ScheduleService scheduleService;
 
 
-    // api 요청을 할  떄 쿼리 파라미터, path variable, request body를 사용
+    // api 요청을 할떄 쿼리 파라미터, path variable, request body를 사용
     // 보통 생성은 request body를 사용하고 request body를 사용하기 위헤서는 dto를 생성 및 사용
 
+
+    // 일정 생성 기능
+    // 클라이언트로부터 전달받은 일정 데이터를 ScheduleRequestDto 객체로 받아옴
     @PostMapping("/schedule")
     public ResponseEntity<ScheduleResponseDto> postSchedule(@RequestBody ScheduleRequestDto dto) {
-        // TODO 일정 작성 기능
-        Schedule schedule = scheduleService.createSchedule(dto);
-        ScheduleResponseDto response = new ScheduleResponseDto(schedule);
-        return ResponseEntity.ok().body(response);
+        Schedule schedule = scheduleService.createSchedule(dto); // ScheduleService를 이용해 새로운 일정을 생성.
+        ScheduleResponseDto response = new ScheduleResponseDto(schedule); // 생성된 일정을 ScheduleResponseDto 객체로 변환.
+        return ResponseEntity.ok().body(response); // 생성된 일정 데이터를 클라이언트에게 반환.
     }
 
+
+    // 특정 일정 조회 기능
+    // 경로 변수로 전달된 일정 ID를 받아옴.
     @GetMapping("/schedule/{scheduleId}")
     public ResponseEntity<ScheduleResponseDto> getSchedule(@PathVariable Long scheduleId) {
         Schedule schedule = scheduleService.getSchedule(scheduleId);
@@ -36,4 +55,14 @@ public class ScheduleController {
         return ResponseEntity.ok().body(response);
     }
 
+
+    // 전체 일정 조회 기능
+    @GetMapping("/schedule")
+    public ResponseEntity<List<ScheduleResponseDto>> getSchedules() {
+        List<Schedule> schedules = scheduleService.getSchedules();
+        List<ScheduleResponseDto> response = schedules.stream()
+                .map(ScheduleResponseDto::new)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok().body(response);
+    }
 }
