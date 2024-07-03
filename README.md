@@ -14,10 +14,14 @@
 
 <BR>
 
-### ✔️ API 명세서
+### ✔️ API 명세서 (POSTMAN) 
 <BR>
 
 ![image](https://github.com/gminnimk/MyScheduleAppServer/assets/165118770/23541bfc-44a3-4e82-9204-d25d08c740ad)
+
+
+![image](https://github.com/gminnimk/MyScheduleAppServer/assets/165118770/9aa92a2e-f8a0-447f-8077-d3277ae2218f)
+
 
 
 <BR>
