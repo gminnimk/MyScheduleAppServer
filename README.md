@@ -6,10 +6,14 @@
 ### 📢 Notification: 과제 시작 전 확인할 내용!
 
 <BR>
+
 <details>
-	<summary>### ✔️ Use Case Diagram </summary>
-  	<div markdown="1">
+<summary>### ✔️ Use Case Diagram </summary>
+<div markdown="1">
+
+
 ![image](https://github.com/gminnimk/MyScheduleAppServer/assets/165118770/febe417c-bd1a-484b-8b92-88550bd7feb9)
+
 </div>
 </details>
 <BR>
